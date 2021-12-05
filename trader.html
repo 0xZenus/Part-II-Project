@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Part II Project User Interface</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3> Trader :
+                    <span id="getUsername"> </span>
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-2">
+                    <h4> Set username : </h4>
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-control" id="setUsername" placeholder="New username">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary" onclick="submitUsername()">Submit</button>
+                </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <h4> Submit order </h4>
+            </div>
+            <div class="col-sm-2">
+                <!-- <div class="form-group">
+                <label for="exampleFormControlSelect1">Example select</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option disabled selected hidden> Action </option>
+                  <option> SELL </option>
+                  <option> BUY </option>
+                </select>
+              </div> -->
+
+                <div class="form-group">
+                    <input class="form-control" id="action" placeholder="Action">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input class="form-control" id="stock" placeholder="Stock">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input class="form-control" id="amount" placeholder="Amount">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input class="form-control" id="price" placeholder="Price">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary" onclick="rawSubmitOrder()">Submit</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <h4> Deposit </h4>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input class="form-control" id="deposit_address" placeholder="Destination address">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input class="form-control" id="deposit_stock" placeholder="Stock/Tokens">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input class="form-control" id="deposit_amount" placeholder="Amount">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary" onclick="rawSubmitDeposit()">Submit</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <h4> Wallet's information</h4>
+                <div class="row">
+                    <div class="col-sm-2"> </div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5> Tokens:
+                                    <span id="tokens"> </span>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="overflow-x: auto">
+                                <h5> Stocks:
+                                    <!--<div class = "table-responsive"> -->
+                                    <table class="table table-hover" style="width:auto" id="wallets_stocks"> </table>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4> Orders in transit</h4>
+                <div class="row">
+                    <div class="col-sm-1"> </div>
+                    <div class="col-sm-11">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5> Sells in transit:
+                                    <table class="table table-hover" style="width:auto" id="sellsTransit"> </table>
+                                </h5>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <h5> Buys in transit:
+                                    <table class="table table-hover" style="width:auto" id="buysTransit"> </table>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4> History</h4>
+                <div class="row">
+                    <div class="col-sm-1"> </div>
+                    <div class="col-sm-11">
+                        <div class="row">
+                            <div class="col-sm-12" style="overflow-x: auto">
+                                <h5> Stocks:
+                                    <!--<div class = "table-responsive"> -->
+                                    <table class="table table-hover" style="width:auto" id="history"> </table>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"> </div>
+            <div class="col-sm-7">
+                <h4> Order book: </h4>
+                <div class="row">
+                    <div class="col-sm-3">  </div>
+                    <div class="col-sm-4"> 
+                        <input class="form-control" id="ob_stock" placeholder="Stock">
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary" onclick="refresh()">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" style="overflow-x: auto">
+                        <h5> Sells:
+                            <table class="table table-hover" style="width:auto" id="ob_sells"> </table>
+                        </h5>
+                    </div>
+                    <div class="col-sm-6" style="overflow-x: auto">
+                        <h5> Buys:
+                            <table class="table table-hover" style="width:auto" id="ob_buys"> </table>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="web3.js-1.2.6/dist/web3.min.js"> </script>
+    <script src="contract-interaction.js"></script>
+    <script src="functionalities.js"></script>
+
+    <script text="text/javascript">
+        const url = new URL(location.href);
+        const network = url.searchParams.get("network");
+        var api, account;
+
+        const rawSubmitOrder = () => {
+            const action = $("#action").val();
+            const stock = $("#stock").val();
+            const amount = $("#amount").val();
+            const price = $("#price").val();
+
+            api.submitOrder(action, stock, amount, price);
+        }
+
+        const rawSubmitDeposit = () => {
+            const dest = $("#deposit_address").val();
+            const stock = $("#deposit_stock").val();
+            const amount = $("#deposit_amount").val();
+
+            api.submitDeposit(dest, stock, amount);
+        }
+
+        const submitUsername = () => {
+            const username = $("#setUsername").val();
+            api.setUsername(username);
+        }
+
+        const refresh = () => {
+            const queriedStock = $("#ob_stock").val();
+            const limit = 5;
+
+            api.refresh(queriedStock, limit).then(() => {
+                document.getElementById("getUsername").innerHTML = api.username;
+                document.getElementById("tokens").innerHTML = api.walletsTokens;
+                document.getElementById("wallets_stocks").innerHTML = fill_up_table(api.walletsStocks, ["stock", "amount"]);
+                document.getElementById("history").innerHTML = fill_up_table(api.history, ["from", "to", "stock", "amount", "price"]);
+                document.getElementById("sellsTransit").innerHTML = fill_up_table(api.sellsInTransit, ["not", "not", "stock", "amount", "price"]);
+                document.getElementById("buysTransit").innerHTML = fill_up_table(api.buysInTransit, ["not", "not", "stock", "amount", "price"]);
+                document.getElementById("ob_sells").innerHTML = fill_up_table(api.sellsInOrderbook, ["not", "not", "stock", "amount", "price"])
+                document.getElementById("ob_buys").innerHTML = fill_up_table(api.buysInOrderbook , ["not", "not", "stock", "amount", "price"])
+            });
+        }
+
+        const loadData = () => {
+            const request = new XMLHttpRequest();
+            request.open("get", "build/contracts/System.json");
+            request.onload = () => {
+                try {
+                    const json = JSON.parse(request.responseText);
+                    const abi = json.abi;
+                    const networks = json.networks;
+                    console.log(network);
+                    init(network, abi, networks).then(([contract, accounts]) => {
+                        account = accounts[0];
+                        api = new API(contract, account);
+                        refresh();
+                    });
+                }
+                catch (e) {
+                    console.warn("Couldn't load json");
+                }
+            }
+            request.send();
+        }
+
+        loadData();
+
+    </script>
+
+</body>
+
+</html>
